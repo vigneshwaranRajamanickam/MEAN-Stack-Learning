@@ -1,0 +1,14 @@
+<div class="item-add-container">
+    <h2>Add New Item</h2>
+    <form (ngSubmit)="addItem()">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" [(ngModel)]="newItem.name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" id="description" [(ngModel)]="newItem.description" name="description" required>
+        </div>
+        <button type="submit" [disabled]="!newItem.name || !newItem.description">Add Item</button>
+    </form>
+</div>

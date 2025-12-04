@@ -1,0 +1,26 @@
+<div class="item-list-container">
+    <h2>Items List</h2>
+    <ul class="item-list">
+        <li *ngFor="let item of items" class="item">
+            <div class="item-content" *ngIf="editingItemId !== item._id">
+                <h3>{{ item.name }}</h3>
+                <p>{{ item.description }}</p>
+            </div>
+
+            <div class="item-edit-form" *ngIf="editingItemId === item._id">
+                <input type="text" [(ngModel)]="editName" placeholder="Name">
+                <input type="text" [(ngModel)]="editDescription" placeholder="Description">
+            </div>
+
+            <div class="item-actions">
+                <button *ngIf="editingItemId !== item._id" (click)="startEdit(item)" class="edit-btn">Edit</button>
+                <button *ngIf="editingItemId !== item._id" (click)="deleteItem(item._id)"
+                    class="delete-btn">Delete</button>
+
+                <button *ngIf="editingItemId === item._id" (click)="saveEdit()" class="save-btn">Save</button>
+                <button *ngIf="editingItemId === item._id" (click)="cancelEdit()" class="cancel-btn">Cancel</button>
+            </div>
+        </li>
+    </ul>
+    <p *ngIf="items.length === 0">No items found.</p>
+</div>

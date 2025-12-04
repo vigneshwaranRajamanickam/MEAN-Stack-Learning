@@ -1,0 +1,28 @@
+  .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+  }
+
+  h1 {
+      text-align: center;
+      color: #333;
+  }
+
+  hr {
+      margin: 30px 0;
+      border: 0;
+      border-top: 1px solid #eee;
+  }
+
+  .server-selector {
+      margin-bottom: 20px;
+      text-align: center;
+  }
+
+  .server-selector select {
+      padding: 5px;
+      margin-left: 10px;
+      font-size: 16px;
+  }

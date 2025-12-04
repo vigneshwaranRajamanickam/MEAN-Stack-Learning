@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>{{ title() }}</h1>
+
+  <div class="server-selector">
+    <label for="server-select">Select Server:</label>
+    <select id="server-select" [(ngModel)]="selectedServer" (change)="onServerChange()">
+      <option value="REST">REST API (Port 3000)</option>
+      <option value="GRAPHQL">GraphQL API (Port 3001)</option>
+    </select>
+  </div>
+
+  <app-item-add (itemAdded)="itemList.getItems()"></app-item-add>
+  <hr>
+  <app-item-list #itemList></app-item-list>
+</div>
