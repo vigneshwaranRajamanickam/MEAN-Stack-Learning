@@ -9,12 +9,15 @@ import { map } from 'rxjs/operators';
 export class ApiService {
     private restUrl = 'http://localhost:3000/api/items';
     private graphqlUrl = 'http://localhost:3001/graphql';
-    private currentMode: 'REST' | 'GRAPHQL' = 'REST';
+    private currentMode: 'REST' | 'GRAPHQL' = (localStorage.getItem('server_mode') as 'REST' | 'GRAPHQL') || 'REST';
+
+    private uploadUrl = 'http://localhost:3000/api/upload';
 
     constructor(private http: HttpClient) { }
 
     setMode(mode: 'REST' | 'GRAPHQL') {
         this.currentMode = mode;
+        localStorage.setItem('server_mode', mode);
     }
 
     getMode() {
@@ -31,6 +34,7 @@ export class ApiService {
                         id
                         name
                         description
+                        image
                     }
                 }
             `;
@@ -46,10 +50,11 @@ export class ApiService {
         } else {
             const query = `
                 mutation {
-                    addItem(name: "${item.name}", description: "${item.description}") {
+                    addItem(name: "${item.name}", description: "${item.description}", image: "${item.image || ''}") {
                         id
                         name
                         description
+                        image
                     }
                 }
             `;
@@ -63,10 +68,11 @@ export class ApiService {
         } else {
             const query = `
                 mutation {
-                    updateItem(id: "${id}", name: "${item.name}", description: "${item.description}") {
+                    updateItem(id: "${id}", name: "${item.name}", description: "${item.description}", image: "${item.image || ''}") {
                         id
                         name
                         description
+                        image
                     }
                 }
             `;
@@ -85,6 +91,12 @@ export class ApiService {
             `;
             return this.http.post<any>(this.graphqlUrl, { query });
         }
+    }
+
+    uploadImage(file: File): Observable<any> {
+        const formData = new FormData();
+        formData.append('image', file);
+        return this.http.post<any>(this.uploadUrl, formData);
     }
 }
 
