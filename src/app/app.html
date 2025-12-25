@@ -1,15 +1,60 @@
-<div class="container">
-  <h1>{{ title() }}</h1>
+<div class="app-layout">
+  <!-- Top Header -->
+  <header class="navbar">
+    <div class="brand">
+      <h1>MEAN App</h1>
+    </div>
 
-  <div class="server-selector">
-    <label for="server-select">Select Server:</label>
-    <select id="server-select" [(ngModel)]="selectedServer" (change)="onServerChange()">
-      <option value="REST">REST API (Port 3000)</option>
-      <option value="GRAPHQL">GraphQL API (Port 3001)</option>
-    </select>
+    <div class="right-section">
+      <div class="server-selector">
+        <label for="server-select">Server:</label>
+        <select id="server-select" [(ngModel)]="selectedServer" (change)="onServerChange()">
+          <option value="REST">REST (3000)</option>
+          <option value="GRAPHQL">GraphQL (3001)</option>
+        </select>
+      </div>
+
+      <button (click)="themeService.toggleTheme()" class="theme-toggle"
+        [attr.aria-label]="'Switch to ' + (themeService.currentTheme() === 'dark' ? 'light' : 'dark') + ' mode'">
+        {{ themeService.currentTheme() === 'dark' ? '☀️' : '🌙' }}
+      </button>
+
+      <div class="user-menu-container">
+        <button class="user-btn" (click)="toggleUserMenu()" aria-label="User Menu">
+          👤
+        </button>
+
+        <div class="user-dropdown" *ngIf="isUserMenuOpen()">
+          <ng-container *ngIf="!authService.isAuthenticated()">
+            <a routerLink="/login" (click)="closeUserMenu()" class="dropdown-item">Login</a>
+            <a routerLink="/register" (click)="closeUserMenu()" class="dropdown-item">Register</a>
+          </ng-container>
+
+          <ng-container *ngIf="authService.isAuthenticated()">
+            <div class="dropdown-header">Welcome!</div>
+            <button (click)="logout()" class="dropdown-item logout-link">Logout</button>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="content-wrapper">
+    <!-- Side Navigation (Only if Logged In) -->
+    <aside class="sidenav" *ngIf="authService.isAuthenticated()">
+      <nav>
+        <a routerLink="/products" routerLinkActive="active" class="nav-item">
+          📦 Products
+        </a>
+        <a routerLink="/product-add" routerLinkActive="active" class="nav-item">
+          ➕ Add Product
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
   </div>
-
-  <app-item-add (itemAdded)="itemList.getItems()"></app-item-add>
-  <hr>
-  <app-item-list #itemList></app-item-list>
 </div>

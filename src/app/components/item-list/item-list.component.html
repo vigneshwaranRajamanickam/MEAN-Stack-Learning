@@ -3,13 +3,38 @@
     <ul class="item-list">
         <li *ngFor="let item of items" class="item">
             <div class="item-content" *ngIf="editingItemId !== item._id">
-                <h3>{{ item.name }}</h3>
-                <p>{{ item.description }}</p>
+                <img *ngIf="item.image" [src]="item.image" alt="{{ item.name }}" class="product-image">
+                <div class="product-details">
+                    <h3>{{ item.name }}</h3>
+                    <p>{{ item.description }}</p>
+                </div>
             </div>
 
             <div class="item-edit-form" *ngIf="editingItemId === item._id">
-                <input type="text" [(ngModel)]="editName" placeholder="Name">
-                <input type="text" [(ngModel)]="editDescription" placeholder="Description">
+                <div class="edit-form-group">
+                    <input type="text" [(ngModel)]="editName" placeholder="Name" class="edit-input">
+                </div>
+                <div class="edit-form-group">
+                    <input type="text" [(ngModel)]="editDescription" placeholder="Description" class="edit-input">
+                </div>
+
+                <div class="edit-form-group image-upload-group">
+                    <label>Change Image</label>
+                    <div class="upload-controls">
+                        <label for="edit-file-upload-{{item._id}}" class="custom-file-upload btn">
+                            <span *ngIf="!isUploading">📂 Choose New</span>
+                            <span *ngIf="isUploading">⏳ Uploading...</span>
+                        </label>
+                        <input id="edit-file-upload-{{item._id}}" type="file" (change)="onFileSelected($event)"
+                            accept="image/*" class="hidden-input">
+
+                        <input type="text" [(ngModel)]="editImage" placeholder="Or Paste URL" class="url-input">
+                    </div>
+                </div>
+
+                <div *ngIf="editImage" class="edit-preview">
+                    <img [src]="editImage" alt="Preview">
+                </div>
             </div>
 
             <div class="item-actions">

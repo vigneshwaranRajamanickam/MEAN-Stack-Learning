@@ -1,84 +1,185 @@
 .item-list-container {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    width: 100%;
+}
+
+h2 {
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    color: var(--text-main);
 }
 
 .item-list {
     list-style-type: none;
     padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    /* Responsive Grid */
+    gap: 1.5rem;
 }
 
 .item {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 0;
+    /* Remove default padding, use inner layout */
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-    padding: 10px 0;
+    flex-direction: column;
 }
 
-.item:last-child {
-    border-bottom: none;
+.item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
 }
 
 .item-content {
-    flex-grow: 1;
-}
-
-.item-edit-form {
-    flex-grow: 1;
+    flex: 1;
     display: flex;
-    gap: 10px;
+    flex-direction: column;
 }
 
-.item-edit-form input {
-    padding: 5px;
-    border: 1px solid #ddd;
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 0;
+    /* Full width top */
+    margin: 0;
+}
+
+.product-details {
+    padding: 1.25rem;
+    flex: 1;
+}
+
+.product-details h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.product-details p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 0;
+}
+
+/* Edit Mode Styling */
+.item-edit-form {
+    padding: 1.25rem;
+    background-color: #fafafa;
+}
+
+.edit-form-group {
+    margin-bottom: 1rem;
+}
+
+.edit-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+.edit-preview img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    margin-top: 0.5rem;
+}
+
+/* Reusing Upload Styles (ensure duplication or shared if possible, duplicating for now to be safe) */
+.image-upload-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.upload-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hidden-input {
+    display: none;
+}
+
+.custom-file-upload {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.url-input {
+    flex: 1;
+    padding: 0.4rem;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
 }
 
 .item-actions {
+    padding: 1rem 1.25rem;
+    background-color: #f9fafb;
+    border-top: 1px solid var(--border-color);
     display: flex;
-    gap: 5px;
+    gap: 0.5rem;
 }
 
-button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.item-actions button {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 6px;
+    margin: 0;
+    /* Reset margins */
+}
+
+/* Buttons */
+.edit-btn {
+    background-color: #eab308;
+    /* Yellow 500 */
     color: white;
 }
 
+.edit-btn:hover {
+    background-color: #ca8a04;
+}
+
 .delete-btn {
-    background-color: #ff4d4d;
+    background-color: #ef4444;
+    /* Red 500 */
+    color: white;
 }
 
 .delete-btn:hover {
-    background-color: #cc0000;
-}
-
-.edit-btn {
-    background-color: #2196F3;
-}
-
-.edit-btn:hover {
-    background-color: #0b7dda;
+    background-color: #dc2626;
 }
 
 .save-btn {
-    background-color: #4CAF50;
+    background-color: var(--primary-color);
+    color: white;
 }
 
 .save-btn:hover {
-    background-color: #45a049;
+    background-color: var(--primary-hover);
 }
 
 .cancel-btn {
-    background-color: #9e9e9e;
+    background-color: #9ca3af;
+    /* Gray 500 */
+    color: white;
 }
 
 .cancel-btn:hover {
-    background-color: #757575;
+    background-color: #6b7280;
 }
