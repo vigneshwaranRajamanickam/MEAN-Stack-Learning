@@ -1,0 +1,24 @@
+<div class="app-container">
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button class="hamburger-btn" (click)="toggleSidebar()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <h2>MEAN App</h2>
+    </header>
+
+    <!-- Sidebar Wrapper (Controlled by class) -->
+    <aside class="sidebar-wrapper" [class.open]="isSidebarOpen">
+        <app-sidenav></app-sidenav>
+    </aside>
+
+    <!-- Backdrop for Mobile -->
+    <div class="backdrop" *ngIf="isSidebarOpen" (click)="closeSidebar()"></div>
+
+    <main class="content">
+        <router-outlet></router-outlet>
+    </main>
+</div>

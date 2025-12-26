@@ -1,0 +1,17 @@
+<div class="settings-container">
+    <h2>Settings</h2>
+
+    <div class="setting-item">
+        <h3>API Mode</h3>
+        <p>Current Mode: <strong>{{ currentMode }}</strong></p>
+
+        <div class="mode-toggles">
+            <button [class.active]="currentMode === 'REST'" (click)="setMode('REST')">REST API</button>
+            <button [class.active]="currentMode === 'GRAPHQL'" (click)="setMode('GRAPHQL')">GraphQL API</button>
+        </div>
+
+        <p class="hint">
+            Note: REST connects to Atlas DB (Port 3000), GraphQL connects to Local DB (Port 3001).
+        </p>
+    </div>
+</div>

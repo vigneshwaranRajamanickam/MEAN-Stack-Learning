@@ -1,0 +1,25 @@
+<nav class="sidenav">
+  <div class="logo">
+    <h2>MEAN App</h2>
+  </div>
+  <ul class="nav-links">
+    <li>
+      <a routerLink="/dashboard" routerLinkActive="active">
+        Dashboard
+      </a>
+    </li>
+    <li>
+      <a routerLink="/products" routerLinkActive="active">
+        Products
+      </a>
+    </li>
+    <li>
+      <a routerLink="/settings" routerLinkActive="active">
+        Settings
+      </a>
+    </li>
+  </ul>
+  <div class="footer">
+    <button (click)="logout()" class="logout-btn">Logout</button>
+  </div>
+</nav>

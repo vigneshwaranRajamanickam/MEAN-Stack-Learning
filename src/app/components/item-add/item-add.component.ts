@@ -47,7 +47,10 @@ export class ItemAddComponent {
     addItem(): void {
         if (this.newItem.name && this.newItem.description) {
             this.apiService.addItem(this.newItem).subscribe(() => {
-                this.router.navigate(['/products']);
+                this.itemAdded.emit(); // Emit event so parent can close modal/refresh
+                // Reset form
+                this.newItem = { name: '', description: '', image: '' };
+                this.selectedFile = null;
             });
         }
     }

@@ -84,7 +84,6 @@
 /* Main Content */
 .main-content {
     flex: 1;
-    padding: 2rem;
     overflow-y: auto;
     /* Scroll main content */
     background-color: var(--bg-color);
