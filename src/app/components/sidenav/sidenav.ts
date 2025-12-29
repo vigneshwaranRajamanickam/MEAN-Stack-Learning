@@ -20,12 +20,12 @@ export class SidenavComponent {
   async confirmLogout() {
     const confirmed = await this.confirmDialogService.confirm('Are you sure you want to log out?', 'Logout');
     if (confirmed) {
-      this.logout();
+      this.authService.logout();
+      this.router.navigate(['/login']);
     }
   }
 
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    this.confirmLogout();
   }
 }
