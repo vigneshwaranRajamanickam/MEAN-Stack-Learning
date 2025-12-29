@@ -1,0 +1,15 @@
+<div class="confirm-backdrop" *ngIf="confirmService.isOpen()" (click)="onCancel()">
+    <div class="confirm-modal" (click)="$event.stopPropagation()">
+        <div class="confirm-header">
+            <h3>{{ confirmService.title() }}</h3>
+            <button class="close-btn" (click)="onCancel()">×</button>
+        </div>
+        <div class="confirm-body">
+            <p>{{ confirmService.message() }}</p>
+        </div>
+        <div class="confirm-actions">
+            <button class="btn-cancel" (click)="onCancel()">Cancel</button>
+            <button class="btn-confirm" (click)="onConfirm()">Confirm</button>
+        </div>
+    </div>
+</div>

@@ -25,7 +25,6 @@
     /* Push content to right */
     flex-grow: 1;
     padding: 2rem;
-    background-color: #f5f6fa;
     width: calc(100% - 250px);
 }
 
@@ -95,6 +94,8 @@
         width: 100%;
         margin-left: 0;
         /* Clear margin on mobile */
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 
     .sidebar-wrapper {

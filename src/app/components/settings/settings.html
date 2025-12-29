@@ -3,15 +3,31 @@
 
     <div class="setting-item">
         <h3>API Mode</h3>
-        <p>Current Mode: <strong>{{ currentMode }}</strong></p>
+        <p>Current Mode: <strong>{{ apiService.mode() }}</strong></p>
 
-        <div class="mode-toggles">
-            <button [class.active]="currentMode === 'REST'" (click)="setMode('REST')">REST API</button>
-            <button [class.active]="currentMode === 'GRAPHQL'" (click)="setMode('GRAPHQL')">GraphQL API</button>
+        <div class="toggle-container">
+            <button [ngClass]="{'active': apiService.mode() === 'REST'}" (click)="setMode('REST')">
+                REST API
+            </button>
+            <button [ngClass]="{'active': apiService.mode() === 'GRAPHQL'}" (click)="setMode('GRAPHQL')">
+                GraphQL API
+            </button>
         </div>
 
         <p class="hint">
             Note: REST connects to Atlas DB (Port 3000), GraphQL connects to Local DB (Port 3001).
         </p>
+    </div>
+
+    <div class="setting-item">
+        <h3>App Theme</h3>
+        <p>Current Theme: <strong>{{ themeService.currentTheme() | titlecase }}</strong></p>
+
+        <div class="toggle-container">
+            <button [ngClass]="{'active': themeService.currentTheme() === 'light'}" (click)="setTheme('light')">Light
+                Mode</button>
+            <button [ngClass]="{'active': themeService.currentTheme() === 'dark'}" (click)="setTheme('dark')">Dark
+                Mode</button>
+        </div>
     </div>
 </div>

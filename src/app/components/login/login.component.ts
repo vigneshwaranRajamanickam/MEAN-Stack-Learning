@@ -30,7 +30,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
-          this.router.navigate(['/product-add']);
+          this.router.navigate(['/dashboard']);
         },
         error: (err) => {
           this.errorMsg = err.error?.message || 'Login failed';

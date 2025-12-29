@@ -24,7 +24,7 @@ label {
     font-weight: 500;
 }
 
-button.add-btn {
+.add-btn {
     width: 100%;
     margin-top: 1rem;
     padding: 1rem;
@@ -38,13 +38,13 @@ button.add-btn {
     box-shadow: 0 4px 6px -1px rgba(6, 182, 212, 0.3);
 }
 
-button.add-btn:hover {
+.add-btn:hover {
     background-color: #0891b2;
     /* Cyan 600 */
     box-shadow: 0 6px 8px -1px rgba(6, 182, 212, 0.4);
 }
 
-button.add-btn:disabled {
+.add-btn:disabled {
     background-color: #cbd5e1;
     box-shadow: none;
     cursor: not-allowed;

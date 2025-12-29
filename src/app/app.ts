@@ -6,24 +6,39 @@ import { ItemAddComponent } from './components/item-add/item-add.component';
 import { ApiService } from './services/api.service';
 import { ThemeService } from './services/theme.service';
 import { AuthService } from './services/auth.service';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogService } from './services/confirm-dialog.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, ItemListComponent, ItemAddComponent, FormsModule],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    ItemListComponent,
+    ItemAddComponent,
+    FormsModule,
+    ConfirmDialogComponent
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('MEAN Stack Learning App');
-  selectedServer: 'REST' | 'GRAPHQL' = 'REST';
   isUserMenuOpen = signal(false);
 
-  constructor(private apiService: ApiService, public themeService: ThemeService, public authService: AuthService, private router: Router) {
-    this.selectedServer = this.apiService.getMode();
+  constructor(
+    public apiService: ApiService,
+    public themeService: ThemeService,
+    public authService: AuthService,
+    private router: Router,
+    private confirmDialogService: ConfirmDialogService
+  ) {
+    // Mode handled by signal
   }
 
-  onServerChange() {
-    this.apiService.setMode(this.selectedServer);
+  onServerChange(mode: 'REST' | 'GRAPHQL') {
+    this.apiService.setMode(mode);
   }
 
   toggleUserMenu() {
@@ -32,6 +47,13 @@ export class App {
 
   closeUserMenu() {
     this.isUserMenuOpen.set(false);
+  }
+
+  async confirmLogout() {
+    const confirmed = await this.confirmDialogService.confirm('Are you sure you want to log out?', 'Confirm Logout');
+    if (confirmed) {
+      this.logout();
+    }
   }
 
   logout() {

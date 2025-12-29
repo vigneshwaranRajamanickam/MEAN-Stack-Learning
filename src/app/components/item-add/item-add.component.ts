@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,11 +11,13 @@ import { ApiService } from '../../services/api.service';
     templateUrl: './item-add.component.html',
     styleUrl: './item-add.component.css'
 })
-export class ItemAddComponent {
+export class ItemAddComponent implements OnChanges {
+    @Input() item: any = null;
     newItem = {
         name: '',
         description: '',
-        image: ''
+        image: '',
+        price: null
     };
     selectedFile: File | null = null;
     isUploading = false;
@@ -24,6 +26,23 @@ export class ItemAddComponent {
 
     constructor(private apiService: ApiService, private router: Router) { }
 
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['item'] && this.item) {
+            this.newItem = { ...this.item };
+        } else if (changes['item'] && !this.item) {
+            this.resetForm();
+        }
+    }
+
+    resetForm() {
+        this.newItem = {
+            name: '',
+            description: '',
+            image: '',
+            price: null
+        };
+        this.selectedFile = null;
+    }
 
     onFileSelected(event: any): void {
         const file: File = event.target.files[0];
@@ -44,14 +63,21 @@ export class ItemAddComponent {
         }
     }
 
-    addItem(): void {
+    saveItem(): void {
         if (this.newItem.name && this.newItem.description) {
-            this.apiService.addItem(this.newItem).subscribe(() => {
-                this.itemAdded.emit(); // Emit event so parent can close modal/refresh
-                // Reset form
-                this.newItem = { name: '', description: '', image: '' };
-                this.selectedFile = null;
-            });
+            if (this.item && this.item._id) {
+                // Edit Mode
+                this.apiService.updateItem(this.item._id, this.newItem).subscribe(() => {
+                    this.itemAdded.emit();
+                    this.resetForm();
+                });
+            } else {
+                // Add Mode
+                this.apiService.addItem(this.newItem).subscribe(() => {
+                    this.itemAdded.emit();
+                    this.resetForm();
+                });
+            }
         }
     }
 }

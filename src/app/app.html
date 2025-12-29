@@ -1,14 +1,14 @@
 <div class="app-layout">
   <!-- Top Header -->
   <header class="navbar">
-    <div class="brand">
+    <div class="brand" (click)="confirmLogout()" style="cursor: pointer;" title="Logout">
       <h1>MEAN App</h1>
     </div>
 
     <div class="right-section">
       <div class="server-selector">
         <label for="server-select">Server:</label>
-        <select id="server-select" [(ngModel)]="selectedServer" (change)="onServerChange()">
+        <select id="server-select" [ngModel]="apiService.mode()" (ngModelChange)="onServerChange($event)">
           <option value="REST">REST (3000)</option>
           <option value="GRAPHQL">GraphQL (3001)</option>
         </select>
@@ -46,9 +46,6 @@
         <a routerLink="/products" routerLinkActive="active" class="nav-item">
           📦 Products
         </a>
-        <a routerLink="/product-add" routerLinkActive="active" class="nav-item">
-          ➕ Add Product
-        </a>
       </nav>
     </aside>
 
@@ -57,4 +54,6 @@
       <router-outlet></router-outlet>
     </main>
   </div>
+
+  <app-confirm-dialog></app-confirm-dialog>
 </div>

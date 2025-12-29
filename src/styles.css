@@ -21,6 +21,7 @@
   --text-muted: #6b7280;
   /* Gray 500 */
   --border-color: #e5e7eb;
+  --modal-bg: #f3f4f6;
   /* Gray 200 */
 
   /* UI Elements */
@@ -52,6 +53,7 @@
   /* Gray 400 */
   --border-color: #374151;
   /* Gray 700 */
+  --modal-bg: #111827;
 
   /* Softer shadows for dark mode */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);

@@ -1,7 +1,10 @@
 <div class="product-list-container">
     <div class="header">
         <h2>Products</h2>
-        <button class="btn-add" (click)="openAddModal()">+ Add Product</button>
+        <div class="header-actions">
+            <button class="btn-reset" (click)="resetCollections()">Reset DB</button>
+            <button class="btn-add" (click)="openAddModal()">+ Add Product</button>
+        </div>
     </div>
 
     <div class="product-grid">
@@ -12,9 +15,18 @@
                 <div *ngIf="!item.image" class="no-image-placeholder">
                     <span>No Image</span>
                 </div>
+
+                <!-- Hover Actions -->
+                <div class="card-actions">
+                    <button class="action-btn edit" (click)="startEdit(item)">✏️ Edit</button>
+                    <button class="action-btn delete" (click)="deleteItem(item)">🗑️ Delete</button>
+                </div>
             </div>
             <div class="product-details">
-                <h3>{{ item.name }}</h3>
+                <div class="product-header">
+                    <h3>{{ item.name }}</h3>
+                    <span class="price-tag">${{ item.price | number:'1.2-2' }}</span>
+                </div>
                 <p>{{ item.description }}</p>
             </div>
         </div>
@@ -28,11 +40,11 @@
     <div class="modal-backdrop" *ngIf="isAddModalOpen" (click)="closeAddModal()">
         <div class="modal-content" (click)="$event.stopPropagation()">
             <div class="modal-header">
-                <h3>Add New Product</h3>
+                <h3>{{ selectedItem ? 'Edit Product' : 'Add New Product' }}</h3>
                 <button class="close-btn" (click)="closeAddModal()">×</button>
             </div>
             <div class="modal-body">
-                <app-item-add (itemAdded)="onItemAdded()"></app-item-add>
+                <app-item-add [item]="selectedItem" (itemAdded)="onItemAdded()"></app-item-add>
             </div>
         </div>
     </div>
