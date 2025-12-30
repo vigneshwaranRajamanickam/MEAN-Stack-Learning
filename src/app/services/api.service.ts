@@ -7,8 +7,8 @@ import { map } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class ApiService {
-    private restUrl = 'http://localhost:3000/api/items';
-    private graphqlUrl = 'http://localhost:3001/graphql';
+    private restUrl = 'http://localhost:3000/api/products';
+    private graphqlUrl = 'http://localhost:3000/graphql';
 
     // Reactive signal for mode
     public mode = signal<'REST' | 'GRAPHQL'>((localStorage.getItem('server_mode') as 'REST' | 'GRAPHQL') || 'REST');
@@ -32,7 +32,7 @@ export class ApiService {
         } else {
             const query = `
                 query {
-                    getItems {
+                    getProducts {
                         id
                         name
                         description
@@ -42,7 +42,7 @@ export class ApiService {
                 }
             `;
             return this.http.post<any>(this.graphqlUrl, { query }).pipe(
-                map(result => result.data.getItems.map((item: any) => ({ ...item, _id: item.id })))
+                map(result => result.data.getProducts.map((item: any) => ({ ...item, _id: item.id })))
             );
         }
     }
@@ -53,7 +53,7 @@ export class ApiService {
         } else {
             const query = `
                 mutation {
-                    addItem(name: "${item.name}", description: "${item.description}", image: "${item.image || ''}", price: ${item.price || 0}) {
+                    addProduct(name: "${item.name}", description: "${item.description}", image: "${item.image || ''}", price: ${item.price || 0}) {
                         id
                         name
                         description
@@ -72,7 +72,7 @@ export class ApiService {
         } else {
             const query = `
                 mutation {
-                    updateItem(id: "${id}", name: "${item.name}", description: "${item.description}", image: "${item.image || ''}", price: ${item.price || 0}) {
+                    updateProduct(id: "${id}", name: "${item.name}", description: "${item.description}", image: "${item.image || ''}", price: ${item.price || 0}) {
                         id
                         name
                         description
@@ -91,7 +91,7 @@ export class ApiService {
         } else {
             const query = `
                 mutation {
-                    deleteItem(id: "${id}")
+                    deleteProduct(id: "${id}")
                 }
             `;
             return this.http.post<any>(this.graphqlUrl, { query });
@@ -110,7 +110,7 @@ export class ApiService {
         } else {
             const query = `
                 mutation {
-                    resetItems
+                    resetProducts
                 }
             `;
             return this.http.post<any>(this.graphqlUrl, { query });

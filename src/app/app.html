@@ -9,8 +9,8 @@
       <div class="server-selector">
         <label for="server-select">Server:</label>
         <select id="server-select" [ngModel]="apiService.mode()" (ngModelChange)="onServerChange($event)">
-          <option value="REST">REST (3000)</option>
-          <option value="GRAPHQL">GraphQL (3001)</option>
+          <option value="REST">REST API</option>
+          <option value="GRAPHQL">GraphQL API</option>
         </select>
       </div>
 
