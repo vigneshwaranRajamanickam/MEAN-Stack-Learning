@@ -26,9 +26,10 @@ export class ApiService {
         return this.mode();
     }
 
-    getItems(): Observable<any[]> {
+    getItems(storeId?: string): Observable<any[]> {
         if (this.mode() === 'REST') {
-            return this.http.get<any[]>(this.restUrl);
+            const url = storeId ? `${this.restUrl}?storeId=${storeId}` : this.restUrl;
+            return this.http.get<any[]>(url);
         } else {
             const query = `
                 query {
@@ -38,6 +39,7 @@ export class ApiService {
                         description
                         image
                         price
+                        stock
                     }
                 }
             `;
@@ -53,12 +55,13 @@ export class ApiService {
         } else {
             const query = `
                 mutation {
-                    addProduct(name: "${item.name}", description: "${item.description}", image: "${item.image || ''}", price: ${item.price || 0}) {
+                    addProduct(name: "${item.name}", description: "${item.description}", image: "${item.image || ''}", price: ${item.price || 0}, stock: ${item.stock || 0}) {
                         id
                         name
                         description
                         image
                         price
+                        stock
                     }
                 }
             `;
@@ -72,12 +75,13 @@ export class ApiService {
         } else {
             const query = `
                 mutation {
-                    updateProduct(id: "${id}", name: "${item.name}", description: "${item.description}", image: "${item.image || ''}", price: ${item.price || 0}) {
+                    updateProduct(id: "${id}", name: "${item.name}", description: "${item.description}", image: "${item.image || ''}", price: ${item.price || 0}, stock: ${item.stock || 0}) {
                         id
                         name
                         description
                         image
                         price
+                        stock
                     }
                 }
             `;
@@ -105,16 +109,8 @@ export class ApiService {
     }
 
     resetCollections(): Observable<any> {
-        if (this.mode() === 'REST') {
-            return this.http.delete<any>(`http://localhost:3000/api/reset`);
-        } else {
-            const query = `
-                mutation {
-                    resetProducts
-                }
-            `;
-            return this.http.post<any>(this.graphqlUrl, { query });
-        }
+        // Global reset for testing/verification
+        return this.http.delete<any>(`http://localhost:3000/api/reset/all`);
     }
 }
 

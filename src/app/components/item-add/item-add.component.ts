@@ -17,7 +17,9 @@ export class ItemAddComponent implements OnChanges {
         name: '',
         description: '',
         image: '',
-        price: null
+        price: null,
+        stock: 0,
+        storeId: ''
     };
     selectedFile: File | null = null;
     isUploading = false;
@@ -39,7 +41,9 @@ export class ItemAddComponent implements OnChanges {
             name: '',
             description: '',
             image: '',
-            price: null
+            price: null,
+            stock: 0, // Reset stock
+            storeId: ''
         };
         this.selectedFile = null;
     }
@@ -64,6 +68,9 @@ export class ItemAddComponent implements OnChanges {
     }
 
     saveItem(): void {
+        const storeId = localStorage.getItem('store_id');
+        this.newItem.storeId = storeId || ''; // Attach storeId
+
         if (this.newItem.name && this.newItem.description) {
             if (this.item && this.item._id) {
                 // Edit Mode

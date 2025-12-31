@@ -29,8 +29,12 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
-        next: () => {
-          this.router.navigate(['/dashboard']);
+        next: (res) => {
+          if (this.authService.getStoreId()) {
+            this.router.navigate(['/dashboard']);
+          } else {
+            this.router.navigate(['/store-selector']);
+          }
         },
         error: (err) => {
           this.errorMsg = err.error?.message || 'Login failed';

@@ -1,7 +1,8 @@
 <div class="app-container">
+    <app-confirm-dialog></app-confirm-dialog>
 
-    <!-- Mobile Header -->
-    <header class="mobile-header">
+    <!-- Mobile & Desktop Header/Toggle -->
+    <header class="app-header">
         <button class="hamburger-btn" (click)="toggleSidebar()">
             <span class="bar"></span>
             <span class="bar"></span>
@@ -9,15 +10,13 @@
         </button>
     </header>
 
-    <!-- Sidebar Wrapper (Controlled by class) -->
-    <aside class="sidebar-wrapper" [class.open]="isSidebarOpen">
+    <!-- Sidebar Wrapper -->
+    <aside class="sidebar-wrapper" [class.closed]="!isSidebarOpen">
         <app-sidenav></app-sidenav>
     </aside>
 
-    <!-- Backdrop for Mobile -->
-    <div class="backdrop" *ngIf="isSidebarOpen" (click)="closeSidebar()"></div>
-
-    <main class="content">
+    <!-- Content Area -->
+    <main class="content" [class.expanded]="!isSidebarOpen">
         <router-outlet></router-outlet>
     </main>
 </div>

@@ -1,6 +1,6 @@
 <nav class="sidenav">
     <div class="logo" (click)="confirmLogout()" style="cursor: pointer;" title="Logout">
-        <h2>MEAN App</h2>
+        <h2>{{ storeName }}</h2>
     </div>
     <ul class="nav-links">
         <li>
@@ -11,6 +11,11 @@
         <li>
             <a routerLink="/products" routerLinkActive="active">
                 Products
+            </a>
+        </li>
+        <li>
+            <a routerLink="/pos" routerLinkActive="active">
+                POS / Billing
             </a>
         </li>
         <li>

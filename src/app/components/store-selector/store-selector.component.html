@@ -1,0 +1,79 @@
+<div class="store-selector-container">
+    <div class="content-wrapper">
+        <header class="page-header">
+            <h1>Select Your Store</h1>
+            <p>Manage your business locations from one place</p>
+        </header>
+
+        <div class="main-grid">
+            <!-- Existing Stores List -->
+            <div class="stores-section">
+                <div class="stores-grid">
+                    <div *ngFor="let store of stores" class="store-card" (click)="selectStore(store)">
+                        <div class="card-icon">🏪</div>
+                        <div class="card-details">
+                            <h3>{{ store.name }}</h3>
+                            <p class="address">{{ store.address }}</p>
+                            <p class="phone" *ngIf="store.phone">📞 {{ store.phone }}</p>
+                        </div>
+
+                        <div class="edit-action" (click)="startEdit(store, $event)" title="Edit Store">
+                            ✏️
+                        </div>
+
+                        <div class="card-action">
+                            <span>Select →</span>
+                        </div>
+                        <div class="active-badge" *ngIf="isCurrentStore(store._id)">Active</div>
+                    </div>
+
+                    <!-- No Stores Empty State -->
+                    <div *ngIf="stores.length === 0" class="empty-state">
+                        <p>No stores found. Create your first one!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create/Edit Form -->
+            <div class="create-section">
+                <div class="create-card">
+                    <div class="create-header">
+                        <h2>{{ editingStore ? '✏️ Edit Store' : '🚀 Launch New Store' }}</h2>
+                        <p>{{ editingStore ? 'Update store details' : 'Expand your business' }}</p>
+                    </div>
+
+                    <form (ngSubmit)="createOrUpdateStore()" #storeForm="ngForm">
+                        <div class="form-group">
+                            <label for="storeName">Store Name</label>
+                            <input type="text" id="storeName" [(ngModel)]="newStore.name" name="name"
+                                placeholder="My Awesome Shop" required [disabled]="isCreating">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" [(ngModel)]="newStore.address" name="address"
+                                placeholder="123 Main St, City" required [disabled]="isCreating">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" id="phone" [(ngModel)]="newStore.phone" name="phone"
+                                placeholder="+1 234 567 890" required [disabled]="isCreating">
+                        </div>
+
+                        <div class="form-actions">
+                            <button *ngIf="editingStore" type="button" class="cancel-btn"
+                                (click)="cancelEdit()">Cancel</button>
+                            <button type="submit" class="create-btn" [disabled]="!storeForm.form.valid || isCreating">
+                                <span *ngIf="!isCreating">{{ editingStore ? 'Update Store' : 'Create Store' }}</span>
+                                <span *ngIf="isCreating" class="loading-state">
+                                    <span class="spinner"></span> Processing...
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,12 +8,12 @@ import { ConfirmDialogService } from '../../services/confirm-dialog.service';
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, SidenavComponent], // Add CommonModule
+  imports: [CommonModule, RouterOutlet, SidenavComponent, ConfirmDialogComponent],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })
 export class MainLayoutComponent {
-  isSidebarOpen = false;
+  isSidebarOpen = true;
 
   constructor(
     private authService: AuthService,

@@ -1,0 +1,106 @@
+<div class="pos-container">
+    <!-- Left: Product Catalog -->
+    <div class="catalog-section">
+        <div class="search-bar">
+            <input type="text" [(ngModel)]="searchTerm" (input)="filterProducts()"
+                placeholder="Search products or scan SKU..." autofocus />
+        </div>
+
+        <div class="products-grid">
+            <div *ngFor="let product of filteredProducts" class="product-card" (click)="addToCart(product)"
+                [class.out-of-stock]="product.stock <= 0">
+                <div class="product-img">
+                    <img *ngIf="product.image" [src]="product.image" alt="{{product.name}}">
+                    <div *ngIf="!product.image" class="placeholder"><span>{{product.name.charAt(0)}}</span></div>
+                </div>
+                <div class="product-info">
+                    <h4>{{product.name}}</h4>
+                    <p class="price">\${{product.price}}</p>
+                    <p class="stock">Stock: {{product.stock}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Cart -->
+    <div class="cart-section">
+        <div class="cart-header">
+            <h3>Current Order</h3>
+            <button class="clear-btn" (click)="cartService.clearCart()">Clear</button>
+        </div>
+
+        <div class="cart-items">
+            <div *ngFor="let item of cartService.cartItems()" class="cart-item">
+                <div class="item-name">
+                    <span>{{item.name}}</span>
+                    <small>@ \${{item.price}}</small>
+                </div>
+                <div class="item-qty">
+                    <button (click)="cartService.updateQuantity(item.productId, item.quantity - 1)">-</button>
+                    <span>{{item.quantity}}</span>
+                    <button (click)="cartService.updateQuantity(item.productId, item.quantity + 1)">+</button>
+                    <button class="remove-btn" (click)="cartService.removeFromCart(item.productId)">x</button>
+                </div>
+                <div class="item-subtotal">
+                    \${{ (item.price * item.quantity) | number:'1.2-2' }}
+                </div>
+            </div>
+            <div *ngIf="cartService.cartItems().length === 0" class="empty-cart">
+                <p>Cart is empty</p>
+            </div>
+        </div>
+
+        <div class="cart-footer">
+            <div class="total-row">
+                <span>Total Items:</span>
+                <span>{{cartService.totalItemsCount()}}</span>
+            </div>
+            <div class="total-row main-total">
+                <span>Total Amount:</span>
+                <span>\${{cartService.totalAmount() | number:'1.2-2'}}</span>
+            </div>
+
+            <button class="checkout-btn" [disabled]="cartService.cartItems().length === 0"
+                (click)="proceedToCheckout()">
+                Proceed to Pay
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Checkout Modal -->
+<div class="modal-backdrop" *ngIf="showCheckoutModal">
+    <div class="modal-content">
+        <h3>Complete Order</h3>
+
+        <div class="form-group">
+            <label>Customer Name (Optional)</label>
+            <input [(ngModel)]="customerName" type="text" placeholder="John Doe">
+        </div>
+
+        <div class="form-group">
+            <label>Phone Number (Optional)</label>
+            <input [(ngModel)]="customerPhone" type="text" placeholder="123-456-7890">
+        </div>
+
+        <div class="form-group">
+            <label>Payment Method</label>
+            <select [(ngModel)]="paymentMethod">
+                <option value="cash">Cash</option>
+                <option value="card">Card</option>
+                <option value="upi">UPI/Digital</option>
+            </select>
+        </div>
+
+        <div class="summary">
+            <h4>Total To Pay: \${{cartService.totalAmount() | number:'1.2-2'}}</h4>
+        </div>
+
+        <div class="modal-actions">
+            <button class="cancel-btn" (click)="cancelCheckout()">Cancel</button>
+            <button class="submit-btn" [disabled]="isProcessing" (click)="submitOrder()">
+                {{ isProcessing ? 'Processing...' : 'Confirm & Print' }}
+            </button>
+        </div>
+    </div>
+</div>

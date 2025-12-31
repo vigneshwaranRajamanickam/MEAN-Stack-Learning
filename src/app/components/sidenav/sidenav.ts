@@ -11,11 +11,17 @@ import { ConfirmDialogService } from '../../services/confirm-dialog.service';
   styleUrl: './sidenav.component.css'
 })
 export class SidenavComponent {
+  storeName: string = '';
+
   constructor(
-    private authService: AuthService,
     private router: Router,
+    private authService: AuthService,
     private confirmDialogService: ConfirmDialogService
   ) { }
+
+  ngOnInit() {
+    this.storeName = this.authService.getStoreName();
+  }
 
   async confirmLogout() {
     const confirmed = await this.confirmDialogService.confirm('Are you sure you want to log out?', 'Logout');

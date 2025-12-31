@@ -9,25 +9,34 @@
 
     <div class="product-grid">
         <div class="product-card" *ngFor="let item of items">
-            <div class="product-image-container">
-                <img *ngIf="item.image" [src]="item.image" alt="{{ item.name }}" class="product-image"
-                    (error)="item.image = null">
-                <div *ngIf="!item.image" class="no-image-placeholder">
-                    <span>No Image</span>
+            <div class="card-image-wrapper">
+                <img *ngIf="item.image" [src]="item.image" alt="{{ item.name }}" class="product-img">
+                <div *ngIf="!item.image" class="no-image">
+                    <span>{{ item.name.charAt(0) }}</span>
                 </div>
 
-                <!-- Hover Actions -->
-                <div class="card-actions">
-                    <button class="action-btn edit" (click)="startEdit(item)">✏️ Edit</button>
-                    <button class="action-btn delete" (click)="deleteItem(item)">🗑️ Delete</button>
+                <!-- Stock Badge -->
+                <div class="stock-badge" [class.low-stock]="item.stock < 10" [class.out-of-stock]="item.stock === 0">
+                    {{ item.stock > 0 ? item.stock + ' in stock' : 'Out of Stock' }}
+                </div>
+
+                <!-- Overlay Actions -->
+                <div class="card-overlay">
+                    <button class="icon-btn edit-btn" (click)="startEdit(item)" title="Edit">
+                        ✏️
+                    </button>
+                    <button class="icon-btn delete-btn" (click)="deleteItem(item)" title="Delete">
+                        🗑️
+                    </button>
                 </div>
             </div>
-            <div class="product-details">
-                <div class="product-header">
-                    <h3>{{ item.name }}</h3>
-                    <span class="price-tag">${{ item.price | number:'1.2-2' }}</span>
+
+            <div class="card-content">
+                <div class="card-header">
+                    <h3 class="product-name">{{ item.name }}</h3>
+                    <span class="product-price">₹{{ item.price | number:'1.2-2' }}</span>
                 </div>
-                <p>{{ item.description }}</p>
+                <p class="product-desc">{{ item.description }}</p>
             </div>
         </div>
     </div>

@@ -1,52 +1,87 @@
 .settings-container {
-    max-width: 800px;
-    background: var(--bg-secondary);
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: var(--card-shadow);
+    max-width: 600px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    color: var(--text-primary);
-    margin-top: 0;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 25px;
+    color: #333;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.setting-item {
+    margin-bottom: 30px;
 }
 
 .setting-item h3 {
-    margin-top: 0;
-    color: var(--text-primary);
+    margin-bottom: 5px;
+    color: #444;
+}
+
+.setting-item p {
+    color: #666;
+    margin-bottom: 15px;
 }
 
 .toggle-container {
     display: flex;
-    gap: 1rem;
-    margin: 1.5rem 0;
+    background: #f0f0f0;
+    border-radius: 8px;
+    padding: 4px;
+    width: fit-content;
 }
 
 .toggle-container button {
-    padding: 0.75rem 1.5rem;
-    border: 2px solid #3498db;
+    padding: 10px 20px;
+    border: none;
     background: transparent;
-    color: #3498db;
-    border-radius: 4px;
     cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s;
+    border-radius: 6px;
+    font-weight: 500;
+    color: #666;
+    transition: all 0.2s ease;
 }
 
 .toggle-container button.active {
-    background: #3498db;
-    color: white;
-}
-
-.toggle-container button:hover:not(.active) {
-    background: rgba(52, 152, 219, 0.1);
+    background: white;
+    color: #e91e63;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .hint {
-    color: #7f8c8d;
-    font-size: 0.9rem;
-    font-style: italic;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #888;
+    background: #f9f9f9;
+    padding: 10px;
+    border-left: 3px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Danger Zone */
+.danger-zone {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.btn-reset {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+.btn-reset:hover {
+    background: #c82333;
 }

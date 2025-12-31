@@ -5,27 +5,37 @@
 }
 
 /* Sidebar Wrapper */
-/* Sidebar Wrapper */
 .sidebar-wrapper {
     width: 250px;
     flex-shrink: 0;
-    transition: transform 0.3s ease-in-out;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
     position: fixed;
-    /* Fixed position */
     top: 0;
     left: 0;
     height: 100vh;
     overflow-y: auto;
+    background: #2c3e50;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-wrapper.closed {
+    transform: translateX(-100%);
 }
 
 /* Content Area */
 .content {
     margin-left: 250px;
-    /* Push content to right */
     flex-grow: 1;
     padding: 2rem;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     width: calc(100% - 250px);
+    min-height: 100vh;
+}
+
+.content.expanded {
+    margin-left: 0;
+    width: 100%;
 }
 
 /* Mobile Header (Hidden on Desktop) */
