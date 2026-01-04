@@ -60,6 +60,33 @@ export class ProductListComponent implements OnInit {
     this.getItems();
   }
 
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        try {
+          const products = JSON.parse(e.target.result);
+          if (Array.isArray(products)) {
+            const currentStoreId = localStorage.getItem('store_id') || undefined;
+            this.apiService.bulkUpload(products, currentStoreId).subscribe({
+              next: () => {
+                alert('Bulk upload successful!');
+                this.getItems(); // Refresh list
+              },
+              error: (err) => alert('Bulk upload failed: ' + err.message)
+            });
+          } else {
+            alert('Invalid file format: Root must be an array.');
+          }
+        } catch (error) {
+          alert('Error parsing JSON file.');
+        }
+      };
+      reader.readAsText(file);
+    }
+  }
+
   resetCollections() {
     if (confirm('Are you sure you want to delete ALL products? This cannot be undone.')) {
       this.apiService.resetCollections().subscribe({

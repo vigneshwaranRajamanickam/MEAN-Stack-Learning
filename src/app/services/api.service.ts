@@ -108,6 +108,11 @@ export class ApiService {
         return this.http.post<any>(this.uploadUrl, formData);
     }
 
+    bulkUpload(products: any[], storeId?: string): Observable<any> {
+        const url = storeId ? `${this.restUrl}/bulk?storeId=${storeId}` : `${this.restUrl}/bulk`;
+        return this.http.post<any>(url, products);
+    }
+
     resetCollections(): Observable<any> {
         // Global reset for testing/verification
         return this.http.delete<any>(`http://localhost:3000/api/reset/all`);

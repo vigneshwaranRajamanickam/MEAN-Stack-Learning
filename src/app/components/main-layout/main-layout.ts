@@ -4,6 +4,7 @@ import { RouterOutlet, Router } from '@angular/router';
 import { SidenavComponent } from '../sidenav/sidenav';
 import { AuthService } from '../../services/auth.service';
 import { ConfirmDialogService } from '../../services/confirm-dialog.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-main-layout',

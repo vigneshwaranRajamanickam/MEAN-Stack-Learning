@@ -17,11 +17,6 @@ export const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'store-selector', component: StoreSelectorComponent, canActivate: [authGuard] },
   {
-    path: 'pos',
-    component: PosComponent,
-    canActivate: [authGuard]
-  },
-  {
     path: '',
     component: MainLayoutComponent,
     canActivate: [authGuard],
@@ -29,7 +24,8 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'products', component: ProductListComponent },
       { path: 'settings', component: SettingsComponent },
-      // Redirect to store selector if no store is selected (logic can be in guard or component)
+      { path: 'pos', component: PosComponent },
+      // Redirect to store selector if no store is selected
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },

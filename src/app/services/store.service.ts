@@ -34,6 +34,10 @@ export class StoreService {
         return this.http.put<any>(`${this.apiUrl}/${id}`, store, this.getHeaders());
     }
 
+    deleteStore(id: string): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrl}/${id}`, this.getHeaders());
+    }
+
     // Helper to get headers with token
     private getHeaders() {
         const token = this.authService.getToken();

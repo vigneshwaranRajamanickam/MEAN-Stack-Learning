@@ -1,30 +1,55 @@
 <nav class="sidenav">
-    <div class="logo" (click)="confirmLogout()" style="cursor: pointer;" title="Logout">
-        <h2>{{ storeName }}</h2>
+    <div class="logo-area">
+        <div class="logo-icon">
+            <i class="fas fa-store"></i>
+        </div>
+        <div class="logo-text">
+            <h2>{{ storeName || 'Store' }}</h2>
+            <span class="status-badge">Online</span>
+        </div>
     </div>
-    <ul class="nav-links">
-        <li>
-            <a routerLink="/dashboard" routerLinkActive="active">
-                Dashboard
-            </a>
-        </li>
-        <li>
-            <a routerLink="/products" routerLinkActive="active">
-                Products
-            </a>
-        </li>
-        <li>
-            <a routerLink="/pos" routerLinkActive="active">
-                POS / Billing
-            </a>
-        </li>
-        <li>
-            <a routerLink="/settings" routerLinkActive="active">
-                Settings
-            </a>
-        </li>
-    </ul>
+
+    <div class="nav-content">
+        <ul class="nav-links">
+            <li>
+                <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/products" routerLinkActive="active" class="nav-item">
+                    <i class="fas fa-box-open"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/pos" routerLinkActive="active" class="nav-item">
+                    <i class="fas fa-cash-register"></i>
+                    <span>POS / Billing</span>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/settings" routerLinkActive="active" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
     <div class="footer">
-        <button (click)="logout()" class="logout-btn">Logout</button>
+        <div class="user-profile">
+            <div class="avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-info">
+                <span class="user-name">Admin</span>
+                <span class="user-role">Manager</span>
+            </div>
+        </div>
+        <button (click)="logout()" class="logout-btn" title="Logout">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
     </div>
 </nav>

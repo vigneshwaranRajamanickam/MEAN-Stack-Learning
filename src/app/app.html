@@ -1,6 +1,6 @@
 <div class="app-layout">
   <!-- Top Header -->
-  <header class="navbar">
+  <!-- <header class="navbar">
     <div class="brand" (click)="confirmLogout()" style="cursor: pointer;" title="Logout">
       <h1>MEAN App</h1>
     </div>
@@ -37,17 +37,10 @@
         </div>
       </div>
     </div>
-  </header>
+  </header> -->
 
   <div class="content-wrapper">
-    <!-- Side Navigation (Only if Logged In) -->
-    <aside class="sidenav" *ngIf="authService.isAuthenticated()">
-      <nav>
-        <a routerLink="/products" routerLinkActive="active" class="nav-item">
-          📦 Products
-        </a>
-      </nav>
-    </aside>
+    <!-- Side Navigation (Only if Logged In) -->  
 
     <!-- Main Content -->
     <main class="main-content">

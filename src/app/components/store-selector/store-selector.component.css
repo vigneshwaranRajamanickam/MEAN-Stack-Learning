@@ -1,34 +1,26 @@
 /* Base Layout */
 .store-selector-container {
-    min-height: 100vh;
+    height: 100vh;
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     padding: 20px;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    overflow: hidden;
 }
 
 .content-wrapper {
     width: 100%;
     max-width: 1200px;
-    margin-top: 40px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .page-header {
     text-align: center;
-    margin-bottom: 40px;
-}
-
-.page-header h1 {
-    font-size: 2.5rem;
-    color: #2d3436;
-    margin-bottom: 10px;
-    font-weight: 700;
-}
-
-.page-header p {
-    color: #636e72;
-    font-size: 1.1rem;
+    margin-bottom: 30px;
+    flex-shrink: 0;
 }
 
 /* Grid Layout */
@@ -36,6 +28,9 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 30px;
+    overflow: hidden;
+    height: 100%;
+    padding-bottom: 20px;
 }
 
 @media (min-width: 900px) {
@@ -43,6 +38,35 @@
         grid-template-columns: 2fr 1fr;
         align-items: start;
     }
+}
+
+/* Stores List (Scrollable Area) */
+.stores-section {
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 10px;
+    /* Avoid scrollbar overlapping content */
+    padding-bottom: 40px;
+    /* Bottom spacing */
+}
+
+/* Custom Scrollbar for Stores Section */
+.stores-section::-webkit-scrollbar {
+    width: 6px;
+}
+
+.stores-section::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+.stores-section::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.stores-section::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
 }
 
 /* Stores List */
@@ -124,33 +148,46 @@
     font-weight: 600;
 }
 
-.edit-action {
+/* Actions Wrapper */
+.actions-wrapper {
     position: absolute;
     top: 15px;
     right: 15px;
+    display: none;
+    /* Hidden by default */
+    gap: 8px;
+}
+
+.store-card:hover .actions-wrapper {
+    display: flex;
+}
+
+.action-btn {
     width: 30px;
     height: 30px;
     background: #f0f0f0;
     border-radius: 50%;
-    display: none;
-    /* Hidden by default or handled via verification logic */
+    display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.8rem;
-    transition: background 0.2s;
+    transition: all 0.2s;
 }
 
-.store-card:hover .edit-action {
-    display: flex;
-}
-
-.active-badge+.edit-action {
-    right: 80px;
-    /* If active badge is present, move edit icon */
-}
-
-.edit-action:hover {
+.action-btn:hover {
     background: #e2e6ea;
+    transform: scale(1.1);
+}
+
+.action-btn.delete:hover {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.active-badge+.actions-wrapper {
+    right: 15px;
+    top: 45px;
+    /* Move below badge if active */
 }
 
 .empty-state {

@@ -17,8 +17,13 @@
                             <p class="phone" *ngIf="store.phone">📞 {{ store.phone }}</p>
                         </div>
 
-                        <div class="edit-action" (click)="startEdit(store, $event)" title="Edit Store">
-                            ✏️
+                        <div class="actions-wrapper">
+                            <div class="action-btn edit" (click)="startEdit(store, $event)" title="Edit Store">
+                                ✏️
+                            </div>
+                            <div class="action-btn delete" (click)="deleteStore(store, $event)" title="Delete Store">
+                                🗑️
+                            </div>
                         </div>
 
                         <div class="card-action">

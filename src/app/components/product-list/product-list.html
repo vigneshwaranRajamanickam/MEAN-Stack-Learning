@@ -1,7 +1,10 @@
 <div class="product-list-container">
     <div class="header">
-        <h2>Products</h2>
         <div class="header-actions">
+            <!-- Hidden File Input -->
+            <input type="file" #fileInput (change)="onFileSelected($event)" accept=".json" style="display: none;">
+
+            <button class="btn-import" (click)="fileInput.click()" title="Upload JSON">📤 Import</button>
             <button class="btn-reset" (click)="resetCollections()">Reset DB</button>
             <button class="btn-add" (click)="openAddModal()">+ Add Product</button>
         </div>

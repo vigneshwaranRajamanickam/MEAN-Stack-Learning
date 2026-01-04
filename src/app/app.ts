@@ -8,6 +8,7 @@ import { ThemeService } from './services/theme.service';
 import { AuthService } from './services/auth.service';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from './services/confirm-dialog.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { ConfirmDialogService } from './services/confirm-dialog.service';
     ItemListComponent,
     ItemAddComponent,
     FormsModule,
+    CommonModule,
     ConfirmDialogComponent
   ],
   templateUrl: './app.html',

@@ -53,6 +53,22 @@ export class StoreSelectorComponent implements OnInit {
     this.newStore = { name: '', address: '', phone: '' };
   }
 
+  deleteStore(store: any, event: Event) {
+    event.stopPropagation();
+    if (!confirm(`Are you sure you want to delete "${store.name}"? This cannot be undone.`)) return;
+
+    this.storeService.deleteStore(store._id).subscribe({
+      next: () => {
+        this.stores = this.stores.filter(s => s._id !== store._id);
+        if (this.isCurrentStore(store._id)) {
+          localStorage.removeItem('store_id');
+          localStorage.removeItem('store_name');
+        }
+      },
+      error: (err) => alert('Failed to delete store: ' + err.message)
+    });
+  }
+
   createOrUpdateStore() {
     if (!this.newStore.name) return;
     this.isCreating = true;

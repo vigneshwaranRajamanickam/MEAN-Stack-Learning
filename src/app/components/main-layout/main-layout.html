@@ -1,22 +1,36 @@
 <div class="app-container">
     <app-confirm-dialog></app-confirm-dialog>
 
-    <!-- Mobile & Desktop Header/Toggle -->
-    <header class="app-header">
-        <button class="hamburger-btn" (click)="toggleSidebar()">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
-    </header>
+    <!-- Mobile Backdrop -->
+    <div class="backdrop" *ngIf="isSidebarOpen" (click)="toggleSidebar()"></div>
 
     <!-- Sidebar Wrapper -->
-    <aside class="sidebar-wrapper" [class.closed]="!isSidebarOpen">
+    <aside class="sidebar-wrapper" [class.open]="isSidebarOpen">
         <app-sidenav></app-sidenav>
     </aside>
 
-    <!-- Content Area -->
-    <main class="content" [class.expanded]="!isSidebarOpen">
-        <router-outlet></router-outlet>
-    </main>
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" [class.sidebar-open]="isSidebarOpen">
+        <!-- Top Header (Mobile & Desktop) -->
+        <header class="app-header">
+            <button class="hamburger-btn" (click)="toggleSidebar()" title="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-title">
+                <h1>Dashboard</h1>
+                <!-- Note: In a real app, this title would be dynamic based on route -->
+            </div>
+            <div class="header-actions">
+                <!-- Placeholder for future header actions (notifications, etc) -->
+                <button class="icon-btn" title="Notifications">
+                    <i class="far fa-bell"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="content-area">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
 </div>
