@@ -13,10 +13,14 @@
     <div class="product-grid">
         <div class="product-card" *ngFor="let item of items">
             <div class="card-image-wrapper">
-                <img *ngIf="item.image" [src]="item.image" alt="{{ item.name }}" class="product-img">
-                <div *ngIf="!item.image" class="no-image">
+            @if(item.image){
+                <img *ngIf="item.image" [src]="item.image" alt="{{ item.name }}" class="product-img"> 
+            }
+            @else{
+                <div class="no-image">
                     <span>{{ item.name.charAt(0) }}</span>
                 </div>
+            } 
 
                 <!-- Stock Badge -->
                 <div class="stock-badge" [class.low-stock]="item.stock < 10" [class.out-of-stock]="item.stock === 0">
