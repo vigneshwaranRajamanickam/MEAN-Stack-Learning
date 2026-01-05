@@ -1,9 +1,11 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { CartService } from '../../services/cart.service';
 import { HttpClient } from '@angular/common/http';
+import { PrintService } from '../../services/print.service';
+import { ConfirmDialogService } from '../../services/confirm-dialog.service';
 
 @Component({
     selector: 'app-pos',
@@ -24,21 +26,26 @@ export class PosComponent implements OnInit {
     paymentMethod = 'cash';
     isProcessing = false;
 
+    storeName: string = '';
+    currentDate = new Date();
+
     constructor(
         private apiService: ApiService,
         public cartService: CartService,
-        private http: HttpClient
+        private http: HttpClient,
+        private printService: PrintService,
+        private confirmService: ConfirmDialogService
     ) { }
 
     ngOnInit() {
+        this.storeName = localStorage.getItem('store_name') || 'Store';
         this.loadProducts();
     }
 
     loadProducts() {
-        // Determine store context (this should ideally be in a global store service or ngrx)
         const storeId = localStorage.getItem('store_id');
         if (!storeId) {
-            alert('No store selected. Please verify login.');
+            this.confirmService.alert('No store selected. Please verify login.', 'Error');
             return;
         }
 
@@ -89,12 +96,24 @@ export class PosComponent implements OnInit {
             paymentMethod: this.paymentMethod
         };
 
-        // Need to use the invoice route. ApiService doesn't have it yet, let's assume we add it or use http directly.
         this.http.post('http://localhost:3000/api/invoices', orderData, {
             headers: { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` }
         }).subscribe({
-            next: (res) => {
-                alert('Order processed successfully!');
+            next: async (res: any) => {
+                await this.confirmService.alert('Order processed successfully!', 'Success');
+
+                // Use shared PrintService
+                const receiptData = {
+                    storeName: this.storeName,
+                    storeAddress: localStorage.getItem('store_address'),
+                    customerName: this.customerName,
+                    items: this.cartService.cartItems(),
+                    totalAmount: this.cartService.totalAmount(),
+                    date: new Date(),
+                    invoiceNumber: res.invoiceNumber || 'NEW'
+                };
+                this.printService.printReceipt(receiptData);
+
                 this.cartService.clearCart();
                 this.showCheckoutModal = false;
                 this.isProcessing = false;
@@ -104,8 +123,8 @@ export class PosComponent implements OnInit {
                 this.customerName = '';
                 this.customerPhone = '';
             },
-            error: (err) => {
-                alert('Failed to process order: ' + (err.error?.message || err.message));
+            error: async (err) => {
+                await this.confirmService.alert('Failed to process order: ' + (err.error?.message || err.message), 'Error');
                 this.isProcessing = false;
             }
         });

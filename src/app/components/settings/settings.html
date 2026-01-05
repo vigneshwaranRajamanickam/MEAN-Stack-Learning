@@ -2,6 +2,24 @@
     <h2>Settings</h2>
 
     <div class="setting-item">
+        <h3>Store Profile</h3>
+        <p>Manage your store details for billing and receipts.</p>
+
+        <div class="form-group">
+            <label>Store Name</label>
+            <input type="text" [(ngModel)]="storeName" placeholder="Enter Store Name">
+        </div>
+
+        <div class="form-group">
+            <label>Store Address</label>
+            <textarea [(ngModel)]="storeAddress" placeholder="Enter Store Address (e.g., 123 Main St, City)"
+                rows="3"></textarea>
+        </div>
+
+        <button class="btn" (click)="saveSettings()">Save Profile</button>
+    </div>
+
+    <div class="setting-item">
         <h3>API Mode</h3>
         <p>Current Mode: <strong>{{ apiService.mode() }}</strong></p>
 

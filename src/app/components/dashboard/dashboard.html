@@ -1,16 +1,33 @@
 <div class="dashboard-container">
-    <p>Select an option from the sidebar to get started.</p>
+    <div class="dashboard-header">
+        <h1>Overview</h1>
+        <p>Welcome back! Here's what's happening with your store today.</p>
+    </div>
 
     <div class="stats-grid">
+        <!-- Products Card -->
         <div class="stat-card">
-            <h3>Products</h3>
-            <p>Manage your inventory</p>
-            <a routerLink="/products" class="btn">View Products</a>
+            <h3>Inventory</h3>
+            <div class="stat-value">{{ stats.productCount }}</div>
+            <p>Products currently in stock across all categories.</p>
+            <a routerLink="/products" class="btn">Manage Inventory</a>
         </div>
+
+        <!-- Invoices Card -->
         <div class="stat-card">
-            <h3>Settings</h3>
-            <p>Configure API mode</p>
-            <a routerLink="/settings" class="btn">Go to Settings</a>
+            <h3>Sales</h3>
+            <div class="stat-value">{{ stats.invoiceCount }}</div>
+            <p>Total invoices generated for this store.</p>
+            <a routerLink="/invoices" class="btn">View Transaction History</a>
+        </div>
+
+        <!-- Settings Card -->
+        <div class="stat-card">
+            <h3>Configuration</h3>
+            <!-- Placeholder icon or text since there's no numeric stat -->
+            <div class="stat-value" style="font-size: 2.5rem;">⚙️</div>
+            <p>Manage API connections and application preferences.</p>
+            <a routerLink="/settings" class="btn">System Settings</a>
         </div>
     </div>
 </div>

@@ -1,0 +1,33 @@
+<div class="invoice-container">
+  <h2>Invoice History</h2>
+
+  <div *ngIf="loading" class="loading">Loading invoices...</div>
+
+  <div *ngIf="!loading && invoices.length === 0" class="empty-state">
+    No invoices found for this store.
+  </div>
+
+  <table *ngIf="!loading && invoices.length > 0" class="invoice-table">
+    <thead>
+      <tr>
+        <th>Invoice #</th>
+        <th>Date</th>
+        <th>Customer</th>
+        <th>Amount</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let invoice of invoices">
+        <td>{{ invoice.invoiceNumber }}</td>
+        <td>{{ invoice.date | date:'medium' }}</td>
+        <td>{{ invoice.customerName || 'Walk-in' }}</td>
+        <td>₹{{ invoice.totalAmount | number:'1.2-2' }}</td>
+        <td>
+          <!-- Future: Print Receipt logic here -->
+          <button class="btn-sm" (click)="viewInvoice(invoice)">View / Print</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

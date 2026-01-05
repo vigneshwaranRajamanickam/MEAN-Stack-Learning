@@ -15,7 +15,7 @@
                 </div>
                 <div class="product-info">
                     <h4>{{product.name}}</h4>
-                    <p class="price">\${{product.price}}</p>
+                    <p class="price">₹{{product.price}}</p>
                     <p class="stock">Stock: {{product.stock}}</p>
                 </div>
             </div>
@@ -33,7 +33,7 @@
             <div *ngFor="let item of cartService.cartItems()" class="cart-item">
                 <div class="item-name">
                     <span>{{item.name}}</span>
-                    <small>@ \${{item.price}}</small>
+                    <small>@ ₹{{item.price}}</small>
                 </div>
                 <div class="item-qty">
                     <button (click)="cartService.updateQuantity(item.productId, item.quantity - 1)">-</button>
@@ -42,7 +42,7 @@
                     <button class="remove-btn" (click)="cartService.removeFromCart(item.productId)">x</button>
                 </div>
                 <div class="item-subtotal">
-                    \${{ (item.price * item.quantity) | number:'1.2-2' }}
+                    ₹{{ (item.price * item.quantity) | number:'1.2-2' }}
                 </div>
             </div>
             <div *ngIf="cartService.cartItems().length === 0" class="empty-cart">
@@ -57,7 +57,7 @@
             </div>
             <div class="total-row main-total">
                 <span>Total Amount:</span>
-                <span>\${{cartService.totalAmount() | number:'1.2-2'}}</span>
+                <span>₹{{cartService.totalAmount() | number:'1.2-2'}}</span>
             </div>
 
             <button class="checkout-btn" [disabled]="cartService.cartItems().length === 0"
@@ -93,7 +93,7 @@
         </div>
 
         <div class="summary">
-            <h4>Total To Pay: \${{cartService.totalAmount() | number:'1.2-2'}}</h4>
+            <h4>Total To Pay: ₹{{cartService.totalAmount() | number:'1.2-2'}}</h4>
         </div>
 
         <div class="modal-actions">
@@ -101,6 +101,27 @@
             <button class="submit-btn" [disabled]="isProcessing" (click)="submitOrder()">
                 {{ isProcessing ? 'Processing...' : 'Confirm & Print' }}
             </button>
+        </div>
+
+        <!-- Printable Receipt Area (Visible only when needed or via CSS print media query) -->
+        <div id="receipt-print-area" class="receipt-print-only" style="display:none;">
+            <div class="receipt-header">
+                <h2>{{ storeName }}</h2>
+                <p>Date: {{ currentDate | date:'medium' }}</p>
+                <p *ngIf="customerName">Customer: {{ customerName }}</p>
+            </div>
+            <div class="receipt-items">
+                <div *ngFor="let item of cartService.cartItems()" class="receipt-item">
+                    <span>{{ item.name }} x{{ item.quantity }}</span>
+                    <span>₹{{ (item.price * item.quantity) | number:'1.2-2' }}</span>
+                </div>
+            </div>
+            <div class="receipt-total">
+                <h3>Total: ₹{{ cartService.totalAmount() | number:'1.2-2' }}</h3>
+            </div>
+            <div class="receipt-footer">
+                <p>Thank you for shopping with us!</p>
+            </div>
         </div>
     </div>
 </div>

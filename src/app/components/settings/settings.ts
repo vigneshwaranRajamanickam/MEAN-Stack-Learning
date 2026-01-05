@@ -1,20 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Import CommonModule for ngClass
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { ThemeService } from '../../services/theme.service';
+import { ConfirmDialogService } from '../../services/confirm-dialog.service';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './settings.html',
   styleUrl: './settings.css',
 })
 export class SettingsComponent implements OnInit {
-  constructor(public apiService: ApiService, public themeService: ThemeService) { }
+  storeName: string = '';
+  storeAddress: string = '';
+
+  constructor(
+    public apiService: ApiService,
+    public themeService: ThemeService,
+    private confirmService: ConfirmDialogService
+  ) { }
 
   ngOnInit() {
-    // No initialization needed as we use the service signal directly
+    this.storeName = localStorage.getItem('store_name') || 'MEAN Store';
+    this.storeAddress = localStorage.getItem('store_address') || '';
+  }
+
+  async saveSettings() {
+    localStorage.setItem('store_name', this.storeName);
+    localStorage.setItem('store_address', this.storeAddress);
+    await this.confirmService.alert('Settings saved successfully!', 'Success');
   }
 
   setMode(mode: 'REST' | 'GRAPHQL') {
@@ -25,11 +41,12 @@ export class SettingsComponent implements OnInit {
     this.themeService.setTheme(theme);
   }
 
-  resetDB() {
-    if (confirm('WARNING: This will delete ALL data (Users, Stores, Products, Invoices). Are you sure?')) {
+  async resetDB() {
+    const confirmed = await this.confirmService.confirm('WARNING: This will delete ALL data (Users, Stores, Products, Invoices). Are you sure?');
+    if (confirmed) {
       this.apiService.resetCollections().subscribe({
-        next: (res) => alert(res.message),
-        error: (err) => alert('Reset failed: ' + err.message)
+        next: async (res) => await this.confirmService.alert(res.message, 'Reset Complete'),
+        error: async (err) => await this.confirmService.alert('Reset failed: ' + err.message, 'Error')
       });
     }
   }

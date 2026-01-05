@@ -23,6 +23,7 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'products', component: ProductListComponent },
+      { path: 'invoices', loadComponent: () => import('./components/invoice-list/invoice-list.component').then(m => m.InvoiceListComponent) },
       { path: 'settings', component: SettingsComponent },
       { path: 'pos', component: PosComponent },
       // Redirect to store selector if no store is selected

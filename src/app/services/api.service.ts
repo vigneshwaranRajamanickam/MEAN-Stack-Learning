@@ -113,6 +113,47 @@ export class ApiService {
         return this.http.post<any>(url, products);
     }
 
+    getDashboardStats(storeId: string): Observable<any> {
+        if (this.mode() === 'REST') {
+            return this.http.get<any>(`${this.restUrl}/stats?storeId=${storeId}`);
+        } else {
+            // Mock GraphQL for stats for now
+            const query = `
+                query {
+                    getDashboardStats(storeId: "${storeId}") {
+                        productCount
+                        invoiceCount
+                    }
+                }
+            `;
+            return this.http.post<any>(this.graphqlUrl, { query }).pipe(
+                map(result => result.data.getDashboardStats)
+            );
+        }
+    }
+
+    getInvoices(storeId: string): Observable<any[]> {
+        if (this.mode() === 'REST') {
+            // Assuming invoices endpoint is parallel to products
+            return this.http.get<any[]>(`http://localhost:3000/api/invoices?storeId=${storeId}`);
+        } else {
+            const query = `
+                query {
+                    getInvoices(storeId: "${storeId}") {
+                        id
+                        invoiceNumber
+                        customerName
+                        totalAmount
+                        date
+                    }
+                }
+            `;
+            return this.http.post<any>(this.graphqlUrl, { query }).pipe(
+                map(result => result.data.getInvoices)
+            );
+        }
+    }
+
     resetCollections(): Observable<any> {
         // Global reset for testing/verification
         return this.http.delete<any>(`http://localhost:3000/api/reset/all`);
