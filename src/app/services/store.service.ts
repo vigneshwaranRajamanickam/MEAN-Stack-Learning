@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
     providedIn: 'root'
 })
 export class StoreService {
-    private apiUrl = `${environment.apiUrl}api/stores`;
+    private apiUrl = `${environment.apiUrl}/stores`;
 
     // Signal to hold current store context
     currentStore = signal<any>(null);
