@@ -10,8 +10,12 @@
             <div *ngFor="let product of filteredProducts" class="product-card" (click)="addToCart(product)"
                 [class.out-of-stock]="product.stock <= 0">
                 <div class="product-img">
-                    <img *ngIf="product.image" [src]="product.image" alt="{{product.name}}">
-                    <div *ngIf="!product.image" class="placeholder"><span>{{product.name.charAt(0)}}</span></div>
+                    @if(product.image){
+                        <img [src]="product.image" alt="{{product.name}}">
+                    }
+                    @else {
+                     <div class="placeholder"><span>{{product.name.charAt(0)}}</span></div>
+                    }
                 </div>
                 <div class="product-info">
                     <h4>{{product.name}}</h4>
