@@ -28,16 +28,23 @@ export class PosComponent implements OnInit {
     paymentMethod = 'cash';
     isProcessing = false;
 
+    // Mobile View State
+    activeMobileView: 'catalog' | 'cart' = 'catalog';
+
     storeName: string = '';
     currentDate = new Date();
 
     constructor(
-        private apiService: ApiService,
+        public apiService: ApiService,
         public cartService: CartService,
         private http: HttpClient,
         private printService: PrintService,
         private confirmService: ConfirmDialogService
     ) { }
+
+    switchMobileView(view: 'catalog' | 'cart') {
+        this.activeMobileView = view;
+    }
 
     ngOnInit() {
         this.storeName = localStorage.getItem('store_name') || 'Store';

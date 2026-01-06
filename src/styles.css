@@ -3,44 +3,44 @@
 
 :root {
   /* Premium Theme Base */
-  --primary-color: #6366f1;
-  /* Indigo 500 */
-  --primary-hover: #4f46e5;
+  --primary-color: #4f46e5;
   /* Indigo 600 */
-  --secondary-color: #ec4899;
-  /* Pink 500 */
-  --accent-color: #8b5cf6;
-  /* Violet 500 */
+  --primary-hover: #4338ca;
+  /* Indigo 700 */
+  --secondary-color: #db2777;
+  /* Pink 600 */
+  --accent-color: #7c3aed;
+  /* Violet 600 */
 
-  --bg-color: #f3f4f6;
-  /* Gray 100 */
+  --bg-color: #f8fafc;
+  /* Slate 50 */
   --sidebar-bg: #0f172a;
   /* Slate 900 */
   --sidebar-text: #94a3b8;
   /* Slate 400 */
-  --sidebar-text-hover: #f1f5f9;
-  /* Slate 100 */
-  --sidebar-active-bg: rgba(99, 102, 241, 0.1);
+  --sidebar-text-hover: #f8fafc;
+  /* Slate 50 */
+  --sidebar-active-bg: rgba(79, 70, 229, 0.1);
   --sidebar-active-border: #6366f1;
 
   --card-bg: #ffffff;
-  --text-main: #111827;
-  /* Gray 900 */
-  --text-muted: #6b7280;
-  /* Gray 500 */
+  --text-main: #0f172a;
+  /* Slate 900 */
+  --text-muted: #64748b;
+  /* Slate 500 */
   --border-color: #e2e8f0;
   /* Slate 200 */
 
   --radius: 12px;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-theme="dark"] {
-  --bg-color: #0f172a;
-  /* Slate 900 */
+  --bg-color: #020617;
+  /* Slate 950 */
   --card-bg: #1e293b;
   /* Slate 800 */
   --text-main: #f8fafc;
@@ -50,13 +50,13 @@
   --border-color: #334155;
   /* Slate 700 */
   --sidebar-bg: #020617;
-  /* Slate 950 */
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -64,6 +64,7 @@ body {
   background-color: var(--bg-color);
   color: var(--text-main);
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 h1,
@@ -85,6 +86,7 @@ a {
 
 button {
   font-family: inherit;
+  cursor: pointer;
 }
 
 /* Global Form Inputs */
@@ -94,7 +96,7 @@ textarea {
   display: block;
   width: 100%;
   padding: 0.75rem 1rem;
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1.5;
   color: var(--text-main);
   background-color: var(--card-bg);
@@ -109,7 +111,7 @@ input:focus,
 select:focus,
 textarea:focus {
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
 }
 
 /* Global Buttons */
