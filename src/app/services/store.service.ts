@@ -2,12 +2,13 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class StoreService {
-    private apiUrl = 'http://localhost:3000/api/stores';
+    private apiUrl = `${environment.apiUrl}api/stores`;
 
     // Signal to hold current store context
     currentStore = signal<any>(null);

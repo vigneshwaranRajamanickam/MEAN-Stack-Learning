@@ -6,6 +6,7 @@ import { CartService } from '../../services/cart.service';
 import { HttpClient } from '@angular/common/http';
 import { PrintService } from '../../services/print.service';
 import { ConfirmDialogService } from '../../services/confirm-dialog.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'app-pos',
@@ -15,6 +16,7 @@ import { ConfirmDialogService } from '../../services/confirm-dialog.service';
     styleUrls: ['./pos.component.css']
 })
 export class PosComponent implements OnInit {
+    private apiUrl = environment.apiUrl;
     products: any[] = [];
     filteredProducts: any[] = [];
     searchTerm: string = '';
@@ -96,7 +98,7 @@ export class PosComponent implements OnInit {
             paymentMethod: this.paymentMethod
         };
 
-        this.http.post('http://localhost:3000/api/invoices', orderData, {
+        this.http.post(`${this.apiUrl}/invoices`, orderData, {
             headers: { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` }
         }).subscribe({
             next: async (res: any) => {

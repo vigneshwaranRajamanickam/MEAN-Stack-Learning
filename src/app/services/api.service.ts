@@ -2,18 +2,20 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
-    private restUrl = 'http://localhost:3000/api/products';
+    private apiUrl = environment.apiUrl;
+    private restUrl = `${this.apiUrl}/products`;
     private graphqlUrl = 'http://localhost:3000/graphql';
 
     // Reactive signal for mode
     public mode = signal<'REST' | 'GRAPHQL'>((localStorage.getItem('server_mode') as 'REST' | 'GRAPHQL') || 'REST');
 
-    private uploadUrl = 'http://localhost:3000/api/upload';
+    private uploadUrl = `${this.apiUrl}/upload`;
 
     constructor(private http: HttpClient) { }
 
@@ -135,7 +137,7 @@ export class ApiService {
     getInvoices(storeId: string): Observable<any[]> {
         if (this.mode() === 'REST') {
             // Assuming invoices endpoint is parallel to products
-            return this.http.get<any[]>(`http://localhost:3000/api/invoices?storeId=${storeId}`);
+            return this.http.get<any[]>(`${this.apiUrl}/invoices?storeId=${storeId}`);
         } else {
             const query = `
                 query {
@@ -156,7 +158,7 @@ export class ApiService {
 
     resetCollections(): Observable<any> {
         // Global reset for testing/verification
-        return this.http.delete<any>(`http://localhost:3000/api/reset/all`);
+        return this.http.delete<any>(`${this.apiUrl}/reset/all`);
     }
 }
 

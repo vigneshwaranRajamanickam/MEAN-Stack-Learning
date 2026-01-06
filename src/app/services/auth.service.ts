@@ -4,12 +4,13 @@ import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { signal } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private restUrl = 'http://localhost:3000/api';
+  private restUrl = environment.apiUrl;
   private graphqlUrl = 'http://localhost:3001/graphql';
   private tokenKey = 'auth_token';
 
