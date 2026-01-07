@@ -104,9 +104,21 @@ export class ApiService {
         }
     }
 
-    uploadImage(file: File): Observable<any> {
+    uploadImage(file: File, fileName?: string): Observable<any> {
         const formData = new FormData();
         formData.append('image', file);
+
+        // Add store name for folder organization
+        const storeName = localStorage.getItem('store_name');
+        if (storeName) {
+            formData.append('storeName', storeName);
+        }
+
+        // Add custom file name if provided
+        if (fileName) {
+            formData.append('fileName', fileName);
+        }
+
         return this.http.post<any>(this.uploadUrl, formData);
     }
 

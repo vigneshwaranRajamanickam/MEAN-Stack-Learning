@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreService } from '../../services/store.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-store-selector',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './store-selector.component.html',
   styleUrls: ['./store-selector.component.css']
 })
 export class StoreSelectorComponent implements OnInit {
   stores: any[] = [];
-  newStore = { name: '', address: '', phone: '' };
+  newStore = { name: '', address: '', phone: '', email: '', password: '' };
   isCreating = false;
 
   editingStore: any = null;
@@ -50,7 +50,7 @@ export class StoreSelectorComponent implements OnInit {
 
   cancelEdit() {
     this.editingStore = null;
-    this.newStore = { name: '', address: '', phone: '' };
+    this.newStore = { name: '', address: '', phone: '', email: '', password: '' };
   }
 
   deleteStore(store: any, event: Event) {
@@ -92,7 +92,7 @@ export class StoreSelectorComponent implements OnInit {
       this.storeService.createStore(this.newStore).subscribe({
         next: (store) => {
           this.stores.push(store);
-          this.newStore = { name: '', address: '', phone: '' };
+          this.newStore = { name: '', address: '', phone: '', email: '', password: '' };
           this.isCreating = false;
         },
         error: (err) => {

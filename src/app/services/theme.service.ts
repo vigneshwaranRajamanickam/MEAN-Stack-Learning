@@ -7,13 +7,12 @@ export class ThemeService {
   currentTheme = signal<'light' | 'dark'>('light');
 
   constructor() {
-    // Check local storage or system preference
+    // Check local storage only
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark';
     if (savedTheme) {
       this.setTheme(savedTheme);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      this.setTheme('dark');
     } else {
+      // Default to light theme for the first time, ignoring system preference
       this.setTheme('light');
     }
   }

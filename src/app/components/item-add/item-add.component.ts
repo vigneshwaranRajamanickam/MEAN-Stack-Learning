@@ -53,7 +53,7 @@ export class ItemAddComponent implements OnChanges {
         if (file) {
             this.selectedFile = file;
             this.isUploading = true;
-            this.apiService.uploadImage(file).subscribe({
+            this.apiService.uploadImage(file, this.newItem.name).subscribe({
                 next: (res) => {
                     this.newItem.image = res.filePath;
                     this.isUploading = false;
@@ -65,6 +65,11 @@ export class ItemAddComponent implements OnChanges {
                 }
             });
         }
+    }
+
+    removeImage() {
+        this.newItem.image = '';
+        this.selectedFile = null;
     }
 
     saveItem(): void {

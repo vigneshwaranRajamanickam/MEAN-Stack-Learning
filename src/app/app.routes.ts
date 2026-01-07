@@ -15,7 +15,13 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'store-selector', component: StoreSelectorComponent, canActivate: [authGuard] },
+  {
+    path: 'store-selector',
+    component: StoreSelectorComponent,
+    canActivate: [authGuard, RoleGuard],
+    data: { roles: ['admin'] }
+  },
+  { path: 'admin-dashboard', loadComponent: () => import('./components/admin-dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent), canActivate: [authGuard, RoleGuard], data: { roles: ['admin'] } },
   {
     path: '',
     component: MainLayoutComponent,

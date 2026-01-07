@@ -1,6 +1,6 @@
 <div class="pos-container">
     <!-- Left: Product Catalog -->
-    <div class="catalog-section">
+    <div class="catalog-section" [class.mobile-hidden]="activeMobileView !== 'catalog'">
         <div class="search-bar">
             <input type="text" [(ngModel)]="searchTerm" (input)="filterProducts()"
                 placeholder="Search products or scan SKU..." autofocus />
@@ -11,10 +11,10 @@
                 [class.out-of-stock]="product.stock <= 0">
                 <div class="product-img">
                     @if(product.image){
-                        <img [src]="product.image" alt="{{product.name}}">
+                    <img [src]="product.image" alt="{{product.name}}">
                     }
                     @else {
-                     <div class="placeholder"><span>{{product.name.charAt(0)}}</span></div>
+                    <div class="placeholder"><span>{{product.name.charAt(0)}}</span></div>
                     }
                 </div>
                 <div class="product-info">
@@ -27,7 +27,7 @@
     </div>
 
     <!-- Right: Cart -->
-    <div class="cart-section">
+    <div class="cart-section" [class.mobile-hidden]="activeMobileView !== 'cart'">
         <div class="cart-header">
             <h3>Current Order</h3>
             <button class="clear-btn" (click)="cartService.clearCart()">Clear</button>
@@ -70,6 +70,23 @@
             </button>
         </div>
     </div>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<div class="mobile-bottom-nav">
+    <button class="nav-btn" [class.active]="activeMobileView === 'catalog'" (click)="switchMobileView('catalog')">
+        <i class="fas fa-th-large"></i>
+        <span>Catalog</span>
+    </button>
+
+    <button class="nav-btn cart-nav-btn" [class.active]="activeMobileView === 'cart'"
+        (click)="switchMobileView('cart')">
+        <div class="cart-icon-wrapper">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="badge" *ngIf="cartService.totalItemsCount() > 0">{{cartService.totalItemsCount()}}</span>
+        </div>
+        <span>Cart (₹{{cartService.totalAmount() | number:'1.0-0'}})</span>
+    </button>
 </div>
 
 <!-- Checkout Modal -->
