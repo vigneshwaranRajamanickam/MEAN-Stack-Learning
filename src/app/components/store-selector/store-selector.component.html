@@ -1,8 +1,13 @@
 <div class="store-selector-container">
     <div class="content-wrapper">
         <header class="page-header">
-            <h1>Select Your Store</h1>
-            <p>Manage your business locations from one place</p>
+            <div class="header-content">
+                <button class="back-link" routerLink="/admin-dashboard">
+                    ← Back to Admin Dashboard
+                </button>
+                <h1>Select Your Store</h1>
+                <p>Manage your business locations from one place</p>
+            </div>
         </header>
 
         <div class="main-grid">
@@ -64,6 +69,21 @@
                             <label for="phone">Phone</label>
                             <input type="text" id="phone" [(ngModel)]="newStore.phone" name="phone"
                                 placeholder="+1 234 567 890" required [disabled]="isCreating">
+                        </div>
+
+                        <!-- Manager Credentials (Create Mode Only) -->
+                        <div class="credentials-section" *ngIf="!editingStore">
+                            <h3 class="section-title">Manager Credentials</h3>
+                            <div class="form-group">
+                                <label for="email">Manager Email</label>
+                                <input type="email" id="email" [(ngModel)]="newStore.email" name="email"
+                                    placeholder="manager@store.com" required [disabled]="isCreating">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" [(ngModel)]="newStore.password" name="password"
+                                    placeholder="********" required [disabled]="isCreating">
+                            </div>
                         </div>
 
                         <div class="form-actions">
