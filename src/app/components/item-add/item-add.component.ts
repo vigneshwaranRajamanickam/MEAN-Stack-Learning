@@ -67,6 +67,11 @@ export class ItemAddComponent implements OnChanges {
         }
     }
 
+    removeImage() {
+        this.newItem.image = '';
+        this.selectedFile = null;
+    }
+
     saveItem(): void {
         const storeId = localStorage.getItem('store_id');
         this.newItem.storeId = storeId || ''; // Attach storeId

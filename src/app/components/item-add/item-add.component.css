@@ -153,27 +153,42 @@ textarea:focus {
 
 .preview-overlay {
     position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
     display: flex;
-    align-items: center;
+    gap: 10px;
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s;
 }
 
-.preview-area:hover .preview-overlay {
+.item-add-container:hover .preview-overlay {
     opacity: 1;
 }
 
-.remove-btn {
-    background: #e74c3c;
+.change-btn {
+    background: #0984e3;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
+    padding: 8px 16px;
+    border-radius: 6px;
     cursor: pointer;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.remove-btn {
+    background: #ff7675;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
     transform: translateY(10px);
     transition: all 0.3s;
 }

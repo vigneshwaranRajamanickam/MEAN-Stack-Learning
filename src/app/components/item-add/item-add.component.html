@@ -41,6 +41,10 @@
                 <label>Product Image</label>
 
                 <div class="image-uploader" [class.has-image]="!!newItem.image">
+                    <!-- Hidden Input always available -->
+                    <input id="file-upload" type="file" (change)="onFileSelected($event)" accept="image/*"
+                        class="hidden-input">
+
                     <div *ngIf="!newItem.image" class="upload-placeholder">
                         <div class="upload-icon">☁️</div>
                         <p>Drag & Drop or Match URL</p>
@@ -49,8 +53,6 @@
                             <label for="file-upload" class="upload-btn">
                                 {{ isUploading ? 'Uploading...' : 'Choose File' }}
                             </label>
-                            <input id="file-upload" type="file" (change)="onFileSelected($event)" accept="image/*"
-                                class="hidden-input">
 
                             <div class="url-input-wrapper">
                                 <input type="text" [(ngModel)]="newItem.image" name="image"
@@ -62,8 +64,16 @@
                     <div *ngIf="newItem.image" class="preview-area">
                         <img [src]="newItem.image" alt="Preview" class="preview-img">
                         <div class="preview-overlay">
-                            <button type="button" class="remove-btn" (click)="newItem.image = ''">Remove Image</button>
+                            <label for="file-upload" class="change-btn">Change Image</label>
+                            <button type="button" class="remove-btn" (click)="removeImage()">Remove Image</button>
                         </div>
+                    </div>
+                </div>
+
+                <div *ngIf="newItem.image" class="preview-area">
+                    <img [src]="newItem.image" alt="Preview" class="preview-img">
+                    <div class="preview-overlay">
+                        <button type="button" class="remove-btn" (click)="removeImage()">Remove Image</button>
                     </div>
                 </div>
             </div>
